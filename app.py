@@ -31,6 +31,18 @@ def index():
 
 @app.route('/select/<string:table>')
 def select_class(table):
+
+    if use_db == 1:
+        sql.execute('select * from %s;' % table)
+        query = sql.fetchall()
+        sql.execute("select column_name from information_schema.columns where table_name = '%s' order by "
+                    "ordinal_position; " % table.lower())
+        query2 = sql.fetchall()
+        x = []
+        for i in query2:
+            x.append(i[0])
+        return render_template('sql_table.html', table=query, header=x)
+
     if table == 'Predmet':
         if len(predmet) > 0:
             return render_template('table.html', table=predmet, header=predmet[1].sloupce)
