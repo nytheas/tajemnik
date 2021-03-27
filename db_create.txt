@@ -1,0 +1,62 @@
+DROP TABLE PracovniStitek;
+DROP TABLE StudijniSkupina;
+DROP TABLE Zamestnanec;
+DROP TABLE Predmet;
+
+CREATE TABLE Predmet (
+    id_predmet serial PRIMARY KEY,
+    zkratka varchar(20),
+    nazev varchar(50),
+    hodin_prednaska Integer,
+    hodin_seminar Integer,
+    hodin_cviceni Integer,
+    pocet_tydnu Integer,
+    jazyk varchar(20),
+    studium varchar(20),
+    rocnik Integer,
+    semestr varchar(20),
+    ukonceni varchar(20),
+    pocet_kreditu Integer
+);
+
+
+CREATE TABLE Zamestnanec (
+    id_zamestnanec serial PRIMARY KEY,
+    jmeno varchar(50),
+    prijmeni varchar(50),
+    mobilni_telefon varchar(50),
+    telefon_pracovni varchar(50),
+    email_pracovni varchar(50),
+    email_nahradni varchar(50),
+    je_doktorand boolean,
+    uvazek double precision,
+    pracovni_body double precision,
+    pracovni_body_anglictina double precision
+);
+
+
+CREATE TABLE StudijniSkupina (
+    id_studijni_skupina serial PRIMARY KEY,
+    zkratka varchar(20),
+    nazev varchar(50),
+    studium varchar(20),
+    rocnik Integer,
+    semestr varchar(20),
+    pocet_studentu Integer
+);
+
+
+CREATE TABLE PracovniStitek (
+    id_pracovni_stitek serial PRIMARY KEY,
+    nazev varchar(50),
+    cid_zamestnanec Integer references zamestnanec(id_zamestnanec),
+    cid_predmet Integer references predmet(id_predmet),
+    typ varchar(20),
+    pocet_studentu Integer,
+    pocet_hodin Integer,
+    pocet_tydnu Integer,
+    jazyk Integer,
+    pracovni_body double precision
+);
+
+

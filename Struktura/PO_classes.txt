@@ -1,0 +1,4 @@
+1|Predmet|Informace o pøedmìtu|predmet
+2|Zamestnanec|Informace o zamìstnancích|zamestnanec
+3|StudijniSkupina|Popis studijní skupiny|studijni_skupina
+4|PracovniStitek|Definice pracovního štítku|pracovni_stitek

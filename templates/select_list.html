@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+Seznam selectů:<br>
+
+{% for i in values %}
+<a href="/select/{{ i }}">{{ i }}</a><br>
+{% endfor %}
+
+{% endblock %}

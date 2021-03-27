@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Novy sklad</title>
+    <meta charset="ISO-8859-2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+ <div class="row">
+     <div class="column left" ><h1>Tajemnik</h1>
+        <a href="/select/">SELECT</a><br>
+
+     </div>
+     <div class="column right">{% block content %} {% endblock %}</div>
+</div>
+
+
+</body>
+</html>
