@@ -112,4 +112,6 @@ def podmineny_select(classdict, id_zamestnanec='NULL', jmeno='NULL', prijmeni='N
 
 
 def initial_values(data):
+    data[1] = Zamestnanec(1, 'Pavel', 'Vařacha', '605605605', '777777777', 'varacha@utb.cz', 'varacha@neutb.cz', 
+                          False, 1, 0, 0)
     return data

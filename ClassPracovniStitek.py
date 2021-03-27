@@ -104,4 +104,5 @@ def podmineny_select(classdict, id_pracovni_stitek='NULL', nazev='NULL', cid_zam
 
 
 def initial_values(data):
+    data[1] = PracovniStitek(1, 'AK8PO - test', 1, 1, 'kombinované', 20, 15, 14, 'český', 0)
     return data

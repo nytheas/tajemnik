@@ -37,5 +37,5 @@ PracovniStitek|5|typ|0|varchar(20)||0|||
 PracovniStitek|6|pocet_studentu|0|Integer||0|||
 PracovniStitek|7|pocet_hodin|0|Integer||0|||
 PracovniStitek|8|pocet_tydnu|0|Integer||0|||
-PracovniStitek|9|jazyk|0|Integer||0|||
+PracovniStitek|9|jazyk|0|varchar(20)||0|||
 PracovniStitek|10|pracovni_body|0|double precision||0|||

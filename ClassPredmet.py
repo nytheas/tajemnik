@@ -120,4 +120,5 @@ def podmineny_select(classdict, id_predmet='NULL', zkratka='NULL', nazev='NULL',
 
 
 def initial_values(data):
+    data[1] = Predmet(1, 'AK8PO', 'Pokročilé programování ', 15, 0, 0, 14, 'český', 'kombinované', 1, 'LS', 'kz', 3)
     return data

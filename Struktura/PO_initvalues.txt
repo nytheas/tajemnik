@@ -1,0 +1,4 @@
+Predmet|13|1|'AK8PO'|'Pokroèilé programování '|15|0|0|14|'èeský'|'kombinované'|1|'LS'|'kz'|3
+Zamestnanec|11|1|'Pavel'|'Vaøacha'|'605605605'|'777777777'|'varacha@utb.cz'|'varacha@neutb.cz'|False|1|0|0||
+StudijniSkupina|7|1|'K4KYB '|'Kybernetická bezpeènost'|'kombinované'|1|'LS'|20||||||
+PracovniStitek|10|1|'AK8PO - test'|1|1|'kombinované'|20|15|14|'èeský'|0|||

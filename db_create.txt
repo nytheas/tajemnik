@@ -55,8 +55,23 @@ CREATE TABLE PracovniStitek (
     pocet_studentu Integer,
     pocet_hodin Integer,
     pocet_tydnu Integer,
-    jazyk Integer,
+    jazyk varchar(20),
     pracovni_body double precision
 );
 
+
+INSERT INTO Predmet (zkratka, nazev, hodin_prednaska, hodin_seminar, hodin_cviceni, pocet_tydnu, jazyk, studium, 
+                     rocnik, semestr, ukonceni, pocet_kreditu) VALUES 
+    ('AK8PO', 'Pokroèilé programování ', 15, 0, 0, 14, 'èeský', 'kombinované', 1, 'LS', 'kz', 3);
+
+INSERT INTO Zamestnanec (jmeno, prijmeni, mobilni_telefon, telefon_pracovni, email_pracovni, email_nahradni, 
+                         je_doktorand, uvazek, pracovni_body, pracovni_body_anglictina) VALUES 
+    ('Pavel', 'Vaøacha', '605605605', '777777777', 'varacha@utb.cz', 'varacha@neutb.cz', False, 1, 0, 0);
+
+INSERT INTO StudijniSkupina (zkratka, nazev, studium, rocnik, semestr, pocet_studentu) VALUES 
+    ('K4KYB ', 'Kybernetická bezpeènost', 'kombinované', 1, 'LS', 20);
+
+INSERT INTO PracovniStitek (nazev, cid_zamestnanec, cid_predmet, typ, pocet_studentu, pocet_hodin, pocet_tydnu, 
+                            jazyk, pracovni_body) VALUES 
+    ('AK8PO - test', 1, 1, 'kombinované', 20, 15, 14, 'èeský', 0);
 
