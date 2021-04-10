@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<table>
+        <tr>
+            <td>Sloupec</td>
+            {% if sqltype != 'INSERT' %}
+            <td>Původní hodnota</td>
+            {% endif %}
+            {% if sqltype == 'UPDATE' or sqltype == 'INSERT' %}
+            <td>Nová hodnota</td>
+            {% endif %}
+        </tr>
+    <FORM method="post">
+        <tr>
+        {% for i in range(itr) %}
+        <td> {{columns[i] }} </td>
+            {% if sqltype != 'INSERT' %}
+                <td>{{ values[i] }}</td>
+            {% endif %}
+            {% if sqltype == 'UPDATE' or sqltype == 'INSERT' %}
+                <td>
+                    <label for="{{ columns[i] }}"></label>
+                    <input type = "text" id="{{ columns[i] }}" name="{{ columns[i] }}" value = "<same>"><br
+                ></td>
+            {% endif%}
+        </tr>
+        {% endfor %}
+        {% if sqltype != 'SELECT' %}
+        <input type="submit" value="{{ sqltype }}">
+        {% endif %}
+    </FORM>
+
+</table>
+
+
+{% endblock %}

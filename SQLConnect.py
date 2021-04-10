@@ -28,5 +28,7 @@ def query(typ, dotaz):
         sql.execute("commit;")
     elif typ == 'UPDATE':
         sql.execute("commit;")
+    elif typ == 'DELETE':
+        sql.execute("commit;")
 
 

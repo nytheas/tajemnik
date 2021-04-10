@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<a href="/functions/">Navrat na seznam</a><br>
+<h2> Funkce: {{ function_name }} </h2><br>
+
+<FORM method="post">
+    {% for i in values %}
+    <label for="{{ values[i] }}">{{ values[i] }}</label>
+    <input type = "text" id="{{ values[i] }}" name="{{ values[i] }}"><br>
+    {% endfor %}
+    <input type="submit" value="odeslat">
+</FORM>
+
+
+{% endblock %}

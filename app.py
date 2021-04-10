@@ -10,6 +10,7 @@ import ClassPredmet
 import ClassZamestnanec
 import ClassPracovniStitek
 import ClassStudijniSkupina
+import procedures
 
 app = Flask(__name__)
 
@@ -62,6 +63,28 @@ def select_class(table):
 def select_list():
     values = ['Predmet', 'Zamestnanec', 'StudijniSkupina', 'PracovniStitek']
     return render_template('select_list.html', values=values)
+
+
+@app.route('/<string:sqltype>/<string:table>/<int:idval>', methods=['GET', 'POST'])
+def tmp(sqltype, table, idval):
+
+    sql.execute("select column_name from information_schema.columns where table_name = '%s' order by "
+                "ordinal_position; " % table.lower())
+    query2 = sql.fetchall()
+    sql.execute('select * from %s where %s = %s;' % (table, query2[0][0], idval))
+    query = sql.fetchall()
+    values = []
+    for i in query[0]:
+        values.append(i)
+    columns = []
+    for i in query2:
+        columns.append(i[0])
+    sqltype = sqltype.upper()
+    if request.method == 'GET':
+        return render_template('generic_sql.html', itr=len(columns), columns=columns, values=values, sqltype=sqltype)
+    elif request.method == 'POST':
+        procedures.generic_web_function(sqltype, request.form.to_dict(), table, idval, query2[0][0])
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
