@@ -1,3 +1,6 @@
+DROP TABLE PracovniBody;
+DROP TABLE ZamestnanciUPredmetu;
+DROP TABLE PredmetyVeSkupine;
 DROP TABLE PracovniStitek;
 DROP TABLE StudijniSkupina;
 DROP TABLE Zamestnanec;
@@ -15,8 +18,13 @@ CREATE TABLE Predmet (
     studium varchar(20),
     rocnik Integer,
     semestr varchar(20),
-    ukonceni varchar(20),
-    pocet_kreditu Integer
+    pocet_kreditu Integer,
+    studentu_prednaska Integer,
+    studentu_seminar Integer,
+    studentu_cviceni Integer,
+    vazba_zapocet varchar(20),
+    vazba_klasifikovany_zapocet varchar(20),
+    vazba_zkouska varchar(20)
 );
 
 
@@ -29,9 +37,7 @@ CREATE TABLE Zamestnanec (
     email_pracovni varchar(50),
     email_nahradni varchar(50),
     je_doktorand boolean,
-    uvazek double precision,
-    pracovni_body double precision,
-    pracovni_body_anglictina double precision
+    uvazek double precision
 );
 
 
@@ -56,22 +62,76 @@ CREATE TABLE PracovniStitek (
     pocet_hodin Integer,
     pocet_tydnu Integer,
     jazyk varchar(20),
+    pracovni_body double precision,
+    rozvrhovany_pocet_studentu double precision,
+    je_zapocet boolean,
+    pracovni_body_zapocet double precision,
+    je_klasifikovany_zapocet boolean,
+    pracovni_body_klasifikovany_zapocet double precision,
+    je_zkouska boolean,
+    pracovni_body_zkouska double precision
+);
+
+
+CREATE TABLE PredmetyVeSkupine (
+    id_predmety_ve_skupine serial PRIMARY KEY,
+    cid_predmet Integer references predmet(id_predmet),
+    cid_studijni_skupina Integer references studijniskupina(id_studijni_skupina)
+);
+
+
+CREATE TABLE ZamestnanciUPredmetu (
+    id_zamestnanci_u_predmetu serial PRIMARY KEY,
+    cid_predmet Integer references predmet(id_predmet),
+    cid_zamestnanec Integer references zamestnanec(id_zamestnanec),
+    prednaska boolean,
+    seminar boolean,
+    cviceni boolean
+);
+
+
+CREATE TABLE PracovniBody (
+    id_pracovni_body serial PRIMARY KEY,
+    typ varchar(50),
+    jazyk varchar(20),
     pracovni_body double precision
 );
 
 
 INSERT INTO Predmet (zkratka, nazev, hodin_prednaska, hodin_seminar, hodin_cviceni, pocet_tydnu, jazyk, studium, 
-                     rocnik, semestr, ukonceni, pocet_kreditu) VALUES 
-    ('AK8PO', 'Pokroèilé programování ', 15, 0, 0, 14, 'èeský', 'kombinované', 1, 'LS', 'kz', 3);
+                     rocnik, semestr, pocet_kreditu, studentu_prednaska, studentu_seminar, studentu_cviceni, 
+                     vazba_zapocet, vazba_klasifikovany_zapocet, vazba_zkouska) VALUES 
+    ('AK8PO', 'Pokroèilé programování ', 15, 0, 0, 14, 'èeský', 'kombinované', 1, 'LS', 3, 999, 24, 21, 'semináø', 
+     '', 'pøednáška'),
+    ('AK8MI', 'Matematická informatika ', 15, 0, 0, 14, 'èeský', 'kombinované', 1, 'LS', 3, 999, 24, 21, '', 
+     'pøednáška', '');
 
 INSERT INTO Zamestnanec (jmeno, prijmeni, mobilni_telefon, telefon_pracovni, email_pracovni, email_nahradni, 
-                         je_doktorand, uvazek, pracovni_body, pracovni_body_anglictina) VALUES 
-    ('Pavel', 'Vaøacha', '605605605', '777777777', 'varacha@utb.cz', 'varacha@neutb.cz', False, 1, 0, 0);
+                         je_doktorand, uvazek) VALUES 
+    ('Pavel', 'Vaøacha', '605605605', '777777777', 'varacha@utb.cz', 'varacha@neutb.cz', False, 1);
 
 INSERT INTO StudijniSkupina (zkratka, nazev, studium, rocnik, semestr, pocet_studentu) VALUES 
-    ('K4KYB ', 'Kybernetická bezpeènost', 'kombinované', 1, 'LS', 20);
+    ('K4KYB ', 'Kybernetická bezpeènost', 'kombinované', 1, 'LS', 123),
+    ('K4IIN ', 'Inženýrská informatika', 'kombinované', 1, 'LS', 76);
 
-INSERT INTO PracovniStitek (nazev, cid_zamestnanec, cid_predmet, typ, pocet_studentu, pocet_hodin, pocet_tydnu, 
-                            jazyk, pracovni_body) VALUES 
-    ('AK8PO - test', 1, 1, 'kombinované', 20, 15, 14, 'èeský', 0);
+INSERT INTO PredmetyVeSkupine (id_predmety_ve_skupine, cid_predmet, cid_studijni_skupina) VALUES 
+    (1, 1, 1),
+    (2, 1, 2);
+
+INSERT INTO ZamestnanciUPredmetu (cid_predmet, cid_zamestnanec, prednaska, seminar, cviceni) VALUES 
+    (1, 1, true, true, true);
+
+INSERT INTO PracovniBody (typ, jazyk, pracovni_body) VALUES 
+    ('pøednáška', 'èeský', 1.8),
+    ('cvièení', 'èeský', 1.2),
+    ('semináø', 'èeský', 1.2),
+    ('pøednáška', 'anglický', 2.4),
+    ('cvièení', 'anglický', 1.8),
+    ('semináø', 'anglický', 1.8),
+    ('zápoèet', 'èeský', 0.2),
+    ('klasifikovaný zápoèet', 'èeský', 0.3),
+    ('zkouška', 'èeský', 0.4),
+    ('zápoèet', 'anglický', 0.2),
+    ('klasifikovaný zápoèet', 'anglický', 0.3),
+    ('zkouška', 'anglický', 0.4);
 

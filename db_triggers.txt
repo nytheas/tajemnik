@@ -1,0 +1,26 @@
+CREATE or replace function spocitej_pracovni_body()
+returns trigger as 
+$BODY$
+declare pb double precision;
+begin
+	select pracovni_body into pb from pracovnibody where jazyk = new.jazyk and typ=new.typ;
+	if new.typ = 'semináø' or new.typ = 'cvièení' or new.typ = 'pøednáška' then
+		new.pracovni_body := pb * new.pocet_hodin * new.pocet_tydnu;
+		if new.pocet_studentu = 0 then
+			new.pracovni_body := 0;
+		end if;
+	end if;
+	return new;
+end;
+$BODY$
+language plpgsql;
+
+
+
+create trigger insert_pracovni_body
+before insert on pracovnistitek for each row
+execute procedure spocitej_pracovni_body();
+
+create trigger update_pracovni_body
+before update on pracovnistitek for each row
+execute procedure spocitej_pracovni_body();

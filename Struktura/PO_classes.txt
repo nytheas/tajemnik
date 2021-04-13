@@ -2,3 +2,6 @@
 2|Zamestnanec|Informace o zamìstnancích|zamestnanec
 3|StudijniSkupina|Popis studijní skupiny|studijni_skupina
 4|PracovniStitek|Definice pracovního štítku|pracovni_stitek
+5|PredmetyVeSkupine|Vazba mezi studijními skupinami a pøedmìty|predmety_ve_skupine
+6|ZamestnanciUPredmetu|Vazba mezi zamìstnanci a pøedmety|zamestnanci_u_predmetu
+7|PracovniBody|Tabulka pracovních bodù|pracovni_body

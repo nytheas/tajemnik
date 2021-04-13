@@ -1,4 +1,20 @@
-Predmet|13|1|'AK8PO'|'Pokroèilé programování '|15|0|0|14|'èeský'|'kombinované'|1|'LS'|'kz'|3
-Zamestnanec|11|1|'Pavel'|'Vaøacha'|'605605605'|'777777777'|'varacha@utb.cz'|'varacha@neutb.cz'|False|1|0|0||
-StudijniSkupina|7|1|'K4KYB '|'Kybernetická bezpeènost'|'kombinované'|1|'LS'|20||||||
-PracovniStitek|10|1|'AK8PO - test'|1|1|'kombinované'|20|15|14|'èeský'|0|||
+Predmet|18|1|'AK8PO'|'Pokroèilé programování '|15|0|0|14|'èeský'|'kombinované'|1|'LS'|3|999|24|21|'semináø'|''|'pøednáška'||
+Predmet|18|1|'AK8MI'|'Matematická informatika '|15|0|0|14|'èeský'|'kombinované'|1|'LS'|3|999|24|21|''|'pøednáška'|''||
+Zamestnanec|9|1|'Pavel'|'Vaøacha'|'605605605'|'777777777'|'varacha@utb.cz'|'varacha@neutb.cz'|False|1|||||||||||
+StudijniSkupina|7|1|'K4KYB '|'Kybernetická bezpeènost'|'kombinované'|1|'LS'|123|||||||||||||
+StudijniSkupina|7|1|'K4IIN '|'Inženýrská informatika'|'kombinované'|1|'LS'|76|||||||||||||
+PredmetyVeSkupine|3|1|1|1|||||||||||||||||
+PredmetyVeSkupine|3|2|1|2|||||||||||||||||
+PracovniBody|4|1|'pøednáška'|'èeský'|1.8||||||||||||||||
+PracovniBody|4|2|'cvièení'|'èeský'|1.2||||||||||||||||
+PracovniBody|4|3|'semináø'|'èeský'|1.2||||||||||||||||
+PracovniBody|4|4|'pøednáška'|'anglický'|2.4||||||||||||||||
+PracovniBody|4|5|'cvièení'|'anglický'|1.8||||||||||||||||
+PracovniBody|4|6|'semináø'|'anglický'|1.8||||||||||||||||
+PracovniBody|4|7|'zápoèet'|'èeský'|0.2||||||||||||||||
+PracovniBody|4|8|'klasifikovaný zápoèet'|'èeský'|0.3||||||||||||||||
+PracovniBody|4|9|'zkouška'|'èeský'|0.4||||||||||||||||
+PracovniBody|4|10|'zápoèet'|'anglický'|0.2||||||||||||||||
+PracovniBody|4|11|'klasifikovaný zápoèet'|'anglický'|0.3||||||||||||||||
+PracovniBody|4|12|'zkouška'|'anglický'|0.4||||||||||||||||
+ZamestnanciUPredmetu|6|1|1|1|true|true|true||||||||||||||

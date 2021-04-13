@@ -9,8 +9,13 @@ Predmet|8|jazyk|0|varchar(20)||0|||
 Predmet|9|studium|0|varchar(20)||0|||
 Predmet|10|rocnik|0|Integer||0|||
 Predmet|11|semestr|0|varchar(20)||0|||
-Predmet|12|ukonceni|0|varchar(20)||0|||
-Predmet|13|pocet_kreditu|0|Integer||0|||
+Predmet|12|pocet_kreditu|0|Integer||0|||
+Predmet|13|studentu_prednaska|0|Integer||0|||
+Predmet|14|studentu_seminar|0|Integer||0|||
+Predmet|15|studentu_cviceni|0|Integer||0|||
+Predmet|16|vazba_zapocet|0|varchar(20)||0|||
+Predmet|17|vazba_klasifikovany_zapocet|0|varchar(20)||0|||
+Predmet|18|vazba_zkouska|0|varchar(20)||0|||
 Zamestnanec|1|id_zamestnanec|1|serial|Vlastní klíè; slouží k párování s ostatními tøídami.|0|||
 Zamestnanec|2|jmeno|0|varchar(50)||0|||
 Zamestnanec|3|prijmeni|0|varchar(50)||0|||
@@ -20,8 +25,6 @@ Zamestnanec|6|email_pracovni|0|varchar(50)||0|||
 Zamestnanec|7|email_nahradni|0|varchar(50)||0|||
 Zamestnanec|8|je_doktorand|0|boolean||0|||
 Zamestnanec|9|uvazek|0|double precision||0|||
-Zamestnanec|10|pracovni_body|0|double precision||0|||
-Zamestnanec|11|pracovni_body_anglictina|0|double precision||0|||
 StudijniSkupina|1|id_studijni_skupina|1|serial|Vlastní klíè; slouží k párování s ostatními tøídami.|0|||
 StudijniSkupina|2|zkratka|0|varchar(20)||0|||
 StudijniSkupina|3|nazev|0|varchar(50)||0|||
@@ -39,3 +42,23 @@ PracovniStitek|7|pocet_hodin|0|Integer||0|||
 PracovniStitek|8|pocet_tydnu|0|Integer||0|||
 PracovniStitek|9|jazyk|0|varchar(20)||0|||
 PracovniStitek|10|pracovni_body|0|double precision||0|||
+PracovniStitek|11|rozvrhovany_pocet_studentu|0|double precision||0|||
+PracovniStitek|12|je_zapocet|0|boolean||0|||
+PracovniStitek|13|pracovni_body_zapocet|0|double precision||0|||
+PracovniStitek|14|je_klasifikovany_zapocet|0|boolean||0|||
+PracovniStitek|15|pracovni_body_klasifikovany_zapocet|0|double precision||0|||
+PracovniStitek|16|je_zkouska|0|boolean||0|||
+PracovniStitek|17|pracovni_body_zkouska|0|double precision||0|||
+PredmetyVeSkupine|1|id_predmety_ve_skupine|0|serial|Vlastní klíè; slouží k párování s ostatními tøídami.|0|||
+PredmetyVeSkupine|2|cid_predmet|0|Integer||0||predmet|id_predmet
+PredmetyVeSkupine|3|cid_studijni_skupina|0|Integer||0||studijniskupina|id_studijni_skupina
+ZamestnanciUPredmetu|1|id_zamestnanci_u_predmetu|1|serial|Vlastní klíè; slouží k párování s ostatními tøídami.|0|||
+ZamestnanciUPredmetu|2|cid_predmet|0|Integer||0||predmet|id_predmet
+ZamestnanciUPredmetu|3|cid_zamestnanec|0|Integer||0||zamestnanec|id_zamestnanec
+ZamestnanciUPredmetu|4|prednaska|0|boolean||0|||
+ZamestnanciUPredmetu|5|seminar|0|boolean||0|||
+ZamestnanciUPredmetu|6|cviceni|0|boolean||0|||
+PracovniBody|1|id_pracovni_body|1|serial|Vlastní klíè; slouží k párování s ostatními tøídami.|0|||
+PracovniBody|2|typ|0|varchar(50)||0|||
+PracovniBody|3|jazyk|0|varchar(20)||0|||
+PracovniBody|4|pracovni_body|0|double precision||0|||

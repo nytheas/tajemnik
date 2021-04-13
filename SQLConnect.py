@@ -24,6 +24,9 @@ def query(typ, dotaz):
     elif typ == 'SELECT1':
         vysl = sql.fetchall()
         return vysl[0][0]
+    elif typ == 'SELECTROW':
+        vysl = sql.fetchall()
+        return vysl[0]
     elif typ == 'INSERT':
         sql.execute("commit;")
     elif typ == 'UPDATE':

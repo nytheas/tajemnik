@@ -83,5 +83,6 @@ def podmineny_select(classdict, id_studijni_skupina='NULL', zkratka='NULL', naze
 
 
 def initial_values(data):
-    data[1] = StudijniSkupina(1, 'K4KYB ', 'Kybernetická bezpečnost', 'kombinované', 1, 'LS', 20)
+    data[1] = StudijniSkupina(1, 'K4KYB ', 'Kybernetická bezpečnost', 'kombinované', 1, 'LS', 123)
+    data[2] = StudijniSkupina(1, 'K4IIN ', 'Inženýrská informatika', 'kombinované', 1, 'LS', 76)
     return data

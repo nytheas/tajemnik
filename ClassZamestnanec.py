@@ -104,8 +104,8 @@ def podmineny_select(classdict, id_zamestnanec='NULL', jmeno='NULL', prijmeni='N
                 (classdict[line].je_doktorand == je_doktorand or je_doktorand == 'NULL') and \
                 (classdict[line].uvazek == uvazek or uvazek == 'NULL') and \
                 (classdict[line].pracovni_body == pracovni_body or pracovni_body == 'NULL') and \
-                (classdict[line].pracovni_body_anglictina == pracovni_body_anglictina or pracovni_body_anglictina ==
-                 'NULL'):
+                (classdict[line].pracovni_body_anglictina == pracovni_body_anglictina or pracovni_body_anglictina == '
+                 NULL'):
             newdict[line] = classdict[line]
 
     return newdict

@@ -1,0 +1,20 @@
+CREATE VIEW prehled_vygenerovanych_stitku AS
+SELECT id_predmet, typ_stitku, predmet_hodin, studenti_ve_tride, COALESCE(round((studenti_celkem / studenti_ve_tride) + 0.5,0),0) as ocekavane_tridy, coalesce(studenti_celkem,0) as studenti_celkem, coalesce(tridy_na_stitcich,0) as tridy_na_stitcich, coalesce(studenti_na_stitcich,0) as studenti_na_stitcich, COALESCE(rozvrhovany_pocet_studentu,0) as rozvrhovany_pocet_studentu FROM (
+SELECT id_predmet, 'pøednáška' as typ_stitku, hodin_prednaska as predmet_hodin, studentu_prednaska as studenti_ve_tride FROM predmet
+UNION
+SELECT id_predmet, 'semináø' as typ, hodin_seminar, studentu_seminar FROM predmet
+UNION
+SELECT id_predmet, 'cvièení' as typ, hodin_cviceni, studentu_cviceni FROM predmet ) p
+LEFT JOIN (SELECT pvs.cid_predmet, sum(ss.pocet_studentu) as studenti_celkem FROM predmetyveskupine pvs
+JOIN studijniskupina ss on ss.id_studijni_skupina = pvs.cid_studijni_skupina
+GROUP BY pvs.cid_predmet) q on q.cid_predmet = p.id_predmet
+FULL JOIN (SELECT cid_predmet, typ, COUNT(pocet_studentu) as tridy_na_stitcich, SUM(pocet_studentu) as studenti_na_stitcich, AVG(rozvrhovany_pocet_studentu) as rozvrhovany_pocet_studentu FROM pracovnistitek
+GROUP BY cid_predmet, typ) r ON r.cid_predmet = p.id_predmet AND r.typ = p.typ_stitku
+ORDER BY id_predmet, typ_stitku;
+
+
+CREATE VIEW stitky_ke_zpracovani AS
+SELECT * from prehled_vygenerovanych_stitku
+WHERE (predmet_hodin = 0 and studenti_na_stitcich > 0) 
+OR (predmet_hodin > 0 and studenti_na_stitcich != studenti_celkem)
+OR (predmet_hodin > 0 and studenti_celkem > 0 and studenti_ve_tride != rozvrhovany_pocet_studentu);
