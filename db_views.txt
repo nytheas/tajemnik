@@ -18,3 +18,24 @@ SELECT * from prehled_vygenerovanych_stitku
 WHERE (predmet_hodin = 0 and studenti_na_stitcich > 0) 
 OR (predmet_hodin > 0 and studenti_na_stitcich != studenti_celkem)
 OR (predmet_hodin > 0 and studenti_celkem > 0 and studenti_ve_tride != rozvrhovany_pocet_studentu);
+
+
+
+CREATE VIEW prehled_vyuky_do_excelu AS
+select ps.cid_zamestnanec, p.zkratka, ps.semestr,ps.pocet_tydnu, COALESCE(psp.prednasky_hodiny,0) as prednasky_hodiny, COALESCE(pss.seminar_hodiny,0) as seminar_hodiny, COALESCE(psc.cviceni_hodiny,0) as cviceni_hodiny, COALESCE(psp.prednasky_pocet,0) as prednasky_pocet, COALESCE(pss.seminar_pocet,0) as seminar_pocet, COALESCE(psc.cviceni_pocet,0) as cviceni_pocet from pracovnistitek ps
+JOIN predmet p on p.id_predmet = ps.cid_predmet
+LEFT JOIN (select cid_zamestnanec, cid_predmet, sum(pocet_hodin) as prednasky_hodiny, count(pocet_hodin) as prednasky_pocet from pracovnistitek
+where pracovni_body > 0 and typ = 'pøednáška'
+group by cid_zamestnanec, cid_predmet) psp ON psp.cid_zamestnanec = ps.cid_zamestnanec and psp.cid_predmet = ps.cid_predmet
+LEFT JOIN (select cid_zamestnanec, cid_predmet, sum(pocet_hodin) as seminar_hodiny, count(pocet_hodin) as seminar_pocet from pracovnistitek
+where pracovni_body > 0 and typ = 'semináø'
+group by cid_zamestnanec, cid_predmet) pss ON pss.cid_zamestnanec = ps.cid_zamestnanec and pss.cid_predmet = ps.cid_predmet
+LEFT JOIN (select cid_zamestnanec, cid_predmet, sum(pocet_hodin) as cviceni_hodiny, count(pocet_hodin) as cviceni_pocet from pracovnistitek
+where pracovni_body > 0 and typ = 'cvièení'
+group by cid_zamestnanec, cid_predmet) psc ON psc.cid_zamestnanec = ps.cid_zamestnanec and psc.cid_predmet = ps.cid_predmet
+
+CREATE VIEW prehled_zkousek_do_excelu AS
+select cid_zamestnanec, zkratka, sum(studentu_zapocet) as studentu_zapocet, sum(studentu_klasifikovany_zapocet) as studentu_klasifikovany_zapocet, sum(studentu_zkouska) as studentu_zkouska from (
+select cid_zamestnanec, p.zkratka, CASE WHEN je_zapocet IS true then pocet_studentu ELSE 0 END as studentu_zapocet,CASE WHEN je_klasifikovany_zapocet IS true then pocet_studentu ELSE 0 END as studentu_klasifikovany_zapocet, CASE WHEN je_zkouska IS true then pocet_studentu ELSE 0 END as studentu_zkouska from pracovnistitek ps
+join predmet p on p.id_predmet = ps.cid_predmet) X 
+GROUP by cid_zamestnanec, zkratka;

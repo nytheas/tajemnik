@@ -4,17 +4,32 @@ $BODY$
 declare pb double precision;
 begin
 	select pracovni_body into pb from pracovnibody where jazyk = new.jazyk and typ=new.typ;
-	if new.typ = 'semináø' or new.typ = 'cvièení' or new.typ = 'pøednáška' then
 		new.pracovni_body := pb * new.pocet_hodin * new.pocet_tydnu;
 		if new.pocet_studentu = 0 then
 			new.pracovni_body := 0;
 		end if;
+	if new.je_zapocet = true then
+		select pracovni_body into pb from pracovnibody where jazyk = new.jazyk and typ='zápoèet';
+		new.pracovni_body_zapocet := pb * new.pocet_studentu;
+	else
+		new.pracovni_body_zapocet := 0;
+	end if;
+	if new.je_klasifikovany_zapocet = true then
+		select pracovni_body into pb from pracovnibody where jazyk = new.jazyk and typ='klasifikovaný zápoèet';
+		new.pracovni_body_klasifikovany_zapocet := pb * new.pocet_studentu;
+	else
+		new.pracovni_body_klasifikovany_zapocet := 0;
+	end if;
+		if new.je_zkouska = true then
+		select pracovni_body into pb from pracovnibody where jazyk = new.jazyk and typ='zkouška';
+		new.pracovni_body_zkouska := pb * new.pocet_studentu;
+	else
+		new.pracovni_body_zkouska := 0;
 	end if;
 	return new;
 end;
 $BODY$
 language plpgsql;
-
 
 
 create trigger insert_pracovni_body

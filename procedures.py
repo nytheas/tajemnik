@@ -63,7 +63,8 @@ def vytvorit_stitky():
             p_nazev = predmet_info[1]
             p_tydnu = predmet_info[6]
             p_jazyk = predmet_info[7]
-
+            p_semestr = predmet_info[10]
+            p_studium = predmet_info[8]
             p_vazba_zapocet = predmet_info[15]
             p_vazba_klasz = predmet_info[16]
             p_vazba_zkouska = predmet_info[17]
@@ -107,10 +108,10 @@ def vytvorit_stitky():
             if len(zam) == 1:
                 cid_zamestnanec = zam[0][2]
             for x in range(len(tmp) - tridy_na_stitcich):
-                sqlquery = """INSERT INTO pracovnistitek (nazev, cid_predmet, cid_zamestnanec, typ, pocet_hodin, pocet_tydnu, jazyk,
-                            rozvrhovany_pocet_studentu, je_zapocet, je_klasifikovany_zapocet, je_zkouska)  VALUES ('%s',%s,%s,'%s',%s,%s,'%s',%s,%s,%s,%s);""" \
-                           % (p_nazev + " - " + typ_stitku, id_predmet, cid_zamestnanec, typ_stitku, p_hodin, p_tydnu, p_jazyk,
-                              velikost_tridy, je_zap, je_klas, je_zk)
+                sqlquery = """INSERT INTO pracovnistitek (nazev, cid_predmet, cid_zamestnanec, typ, semestr, studium, pocet_hodin, pocet_tydnu, jazyk,
+                            rozvrhovany_pocet_studentu, je_zapocet, je_klasifikovany_zapocet, je_zkouska)  VALUES ('%s',%s,%s,'%s','%s','%s',%s,%s,'%s',%s,%s,%s,%s);""" \
+                           % (p_nazev + " - " + typ_stitku, id_predmet, cid_zamestnanec, typ_stitku, p_semestr,
+                              p_studium, p_hodin, p_tydnu, p_jazyk,  velikost_tridy, je_zap, je_klas, je_zk)
                 SQLConnect.query('INSERT', sqlquery)
 
 

@@ -11,6 +11,8 @@ import ClassZamestnanec
 import ClassPracovniStitek
 import ClassStudijniSkupina
 import procedures
+import generuj_excel
+import odeslat_mail
 
 app = Flask(__name__)
 
@@ -30,7 +32,15 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/select/<string:table>')
+@app.route('/data/')
+@app.route('/data')
+def list_of_tables():
+    table_list = ['predmet', 'zamestnanec', 'studijniskupina', 'pracovnistitek', 'predmetyveskupine',
+                  'zamestnanciupredmetu', 'pracovnibody']
+    return render_template('select_list.html', values=table_list)
+
+
+@app.route('/data/<string:table>')
 def select_class(table):
 
     if use_db == 1:
@@ -42,7 +52,7 @@ def select_class(table):
         x = []
         for i in query2:
             x.append(i[0])
-        return render_template('sql_table.html', table=query, header=x)
+        return render_template('sql_table.html', table=query, header=x, tabname=table)
 
     if table == 'Predmet':
         if len(predmet) > 0:
@@ -59,13 +69,8 @@ def select_class(table):
     return render_template('table.html')
 
 
-@app.route('/select/')
-def select_list():
-    values = ['Predmet', 'Zamestnanec', 'StudijniSkupina', 'PracovniStitek']
-    return render_template('select_list.html', values=values)
-
-
-@app.route('/<string:sqltype>/<string:table>/<int:idval>', methods=['GET', 'POST'])
+@app.route('/data/<string:table>/<int:idval>/<string:sqltype>', methods=['GET', 'POST'])
+# @app.route('/<string:sqltype>/<string:table>/<int:idval>', methods=['GET', 'POST'])
 def tmp(sqltype, table, idval):
 
     sql.execute("select column_name from information_schema.columns where table_name = '%s' order by "
@@ -74,16 +79,41 @@ def tmp(sqltype, table, idval):
     sql.execute('select * from %s where %s = %s;' % (table, query2[0][0], idval))
     query = sql.fetchall()
     values = []
-    for i in query[0]:
-        values.append(i)
+    if sqltype.lower() != 'insert':
+        for i in query[0]:
+            values.append(i)
     columns = []
     for i in query2:
         columns.append(i[0])
     sqltype = sqltype.upper()
     if request.method == 'GET':
-        return render_template('generic_sql.html', itr=len(columns), columns=columns, values=values, sqltype=sqltype)
+        return render_template('generic_sql.html', itr=len(columns), columns=columns, values=values,
+                               sqltype=sqltype, table=table, idval=idval)
     elif request.method == 'POST':
         procedures.generic_web_function(sqltype, request.form.to_dict(), table, idval, query2[0][0])
+    return render_template('index.html')
+
+
+@app.route('/funkce/vygenerujstitky')
+def vygeneruj_stitky():
+    procedures.vytvorit_stitky()
+    return render_template('index.html')
+
+
+@app.route('/funkce/vygenerujpracovnilisty')
+def vygeneruj_pracovni_listy():
+    sql.execute("select id_zamestnanec from zamestnanec;")
+    zamestnanci = sql.fetchall()
+    for zam in zamestnanci:
+        generuj_excel.vygenerovat_uvazky(zam[0])
+    return render_template('index.html')
+
+
+@app.route('/funkce/odeslimail')
+def odesli_prilohy_mailem():
+    sql.execute("select id_zamestnanec from zamestnanec;")
+    zamestnanci = sql.fetchall()
+    odeslat_mail.odeslat_mail()
     return render_template('index.html')
 
 

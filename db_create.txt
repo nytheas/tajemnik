@@ -62,6 +62,8 @@ CREATE TABLE PracovniStitek (
     pocet_hodin Integer,
     pocet_tydnu Integer,
     jazyk varchar(20),
+    semestr varchar(20),
+    studium varchar(20),
     pracovni_body double precision,
     rozvrhovany_pocet_studentu double precision,
     je_zapocet boolean,

@@ -1,14 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<a href="/data/">Zpět na seznam</a>
+<a href="/data/{{ tabname }}/0/insert">Vložit nový záznam</a>
 <table>
         <tr>
-        {% for i in header %}
+            <td>odkaz</td>
+            {% for i in header %}
         <td>{{ i }}</td>
         {% endfor %}
     </tr>
      {% for i in table %}
     <tr>
+        <td><a href="/data/{{ tabname }}/{{ i[0] }}/select">+</a></td>
         {% for j in i %}
         <td>{{ j }}</td>
         {% endfor %}

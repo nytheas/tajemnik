@@ -41,14 +41,16 @@ PracovniStitek|6|pocet_studentu|0|Integer||0|||
 PracovniStitek|7|pocet_hodin|0|Integer||0|||
 PracovniStitek|8|pocet_tydnu|0|Integer||0|||
 PracovniStitek|9|jazyk|0|varchar(20)||0|||
-PracovniStitek|10|pracovni_body|0|double precision||0|||
-PracovniStitek|11|rozvrhovany_pocet_studentu|0|double precision||0|||
-PracovniStitek|12|je_zapocet|0|boolean||0|||
-PracovniStitek|13|pracovni_body_zapocet|0|double precision||0|||
-PracovniStitek|14|je_klasifikovany_zapocet|0|boolean||0|||
-PracovniStitek|15|pracovni_body_klasifikovany_zapocet|0|double precision||0|||
-PracovniStitek|16|je_zkouska|0|boolean||0|||
-PracovniStitek|17|pracovni_body_zkouska|0|double precision||0|||
+PracovniStitek|10|semestr|0|varchar(20)||0|||
+PracovniStitek|11|studium|0|varchar(20)||0|||
+PracovniStitek|12|pracovni_body|0|double precision||1|0||
+PracovniStitek|13|rozvrhovany_pocet_studentu|0|double precision||0|||
+PracovniStitek|14|je_zapocet|0|boolean||0|||
+PracovniStitek|15|pracovni_body_zapocet|0|double precision||1|0||
+PracovniStitek|16|je_klasifikovany_zapocet|0|boolean||0|||
+PracovniStitek|17|pracovni_body_klasifikovany_zapocet|0|double precision||1|0||
+PracovniStitek|18|je_zkouska|0|boolean||0|||
+PracovniStitek|19|pracovni_body_zkouska|0|double precision||1|0||
 PredmetyVeSkupine|1|id_predmety_ve_skupine|0|serial|Vlastní klíè; slouží k párování s ostatními tøídami.|0|||
 PredmetyVeSkupine|2|cid_predmet|0|Integer||0||predmet|id_predmet
 PredmetyVeSkupine|3|cid_studijni_skupina|0|Integer||0||studijniskupina|id_studijni_skupina

@@ -148,8 +148,8 @@ def podmineny_select(classdict, id_predmet='NULL', zkratka='NULL', nazev='NULL',
                 (classdict[line].studentu_seminar == studentu_seminar or studentu_seminar == 'NULL') and \
                 (classdict[line].studentu_cviceni == studentu_cviceni or studentu_cviceni == 'NULL') and \
                 (classdict[line].vazba_zapocet == vazba_zapocet or vazba_zapocet == 'NULL') and \
-                (classdict[line].vazba_klasifikovany_zapocet == vazba_klasifikovany_zapocet or v
-                 azba_klasifikovany_zapocet == 'NULL') and \
+                (classdict[line].vazba_klasifikovany_zapocet == vazba_klasifikovany_zapocet or
+                 vazba_klasifikovany_zapocet == 'NULL') and \
                 (classdict[line].vazba_zkouska == vazba_zkouska or vazba_zkouska == 'NULL'):
             newdict[line] = classdict[line]
 

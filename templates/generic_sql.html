@@ -1,6 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{% if sqltype == 'SELECT' %}
+<a href="/data/{{ table }}/{{ idval }}/update">Upravit záznam</a><br>
+<a href="/data/{{ table }}/{{ idval }}/delete">Smazat záznam</a><br>
+<a href="/data/{{ table }}">Zpět na tabulku</a><br>
+{% endif %}
+{% if sqltype == 'UPDATE' or sqltype == 'DELETE'%}
+<a href="/data/{{ table }}/{{ idval }}/select">Zpět na záznam</a><br>
+{% endif %}
+{% if sqltype == 'INSERT' %}
+<a href="/data/{{ table }}">Zpět na tabulku</a><br>
+{% endif %}
 <table>
         <tr>
             <td>Sloupec</td>
