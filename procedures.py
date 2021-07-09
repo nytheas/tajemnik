@@ -17,11 +17,14 @@ def generic_web_function(sqltype, valdict, table, idval, idname):
         SQLConnect.query('INSERT', sqlquery)
     elif sqltype == 'UPDATE':
         sqlquery = 'UPDATE ' + table + ' SET '
+        changed = False
         for i in valdict:
             if valdict[i] != "<same>":
                 sqlquery += i + " = '" + valdict[i] + "', "
+                changed = True
         sqlquery = sqlquery[:-2] + " where " + idname + " = " + str(idval) + ";"
-        SQLConnect.query('UPDATE', sqlquery)
+        if changed:
+            SQLConnect.query('UPDATE', sqlquery)
     elif sqltype == 'DELETE':
         sqlquery = 'DELETE FROM ' + table + " where " + idname + " = " + str(idval) + ";"
         SQLConnect.query('DELETE', sqlquery)
@@ -123,6 +126,53 @@ def vytvorit_stitky():
             SQLConnect.query('UPDATE', sqlquery)
 
 
-vytvorit_stitky()
+def doplnit_zamestnance(data):
+    for radek in data:
+        if data[radek] == '':
+            continue
+        if data[radek] == 'žádný':
+            sqlquery = "UPDATE pracovnistitek set cid_zamestnanec = NULL where id_pracovni_stitek = %s " % radek
+        else:
+            sqlquery = "UPDATE pracovnistitek set cid_zamestnanec = %s where id_pracovni_stitek = %s " % (data[radek].split("-")[0], radek)
+        SQLConnect.query('UPDATE', sqlquery)
+
+
+def doplnit_predmety_ve_skupinach(data):
+    print(data)
+    # zjistit, zda založit nový záznam
+    if data['0_predmet'] not in ['', 'smazat'] and data['0_skupina'] not in ['', 'smazat']:
+        predm = int(data['0_predmet'].split('-')[0])
+        skup = int(data['0_skupina'].split('-')[0])
+        sqlquery = "INSERT INTO predmetyveskupine (cid_predmet, cid_studijni_skupina) VALUES (%s, %s)" % (predm, skup)
+        print(sqlquery)
+        SQLConnect.query('INSERT', sqlquery)
+    # check jednotlivých záznamů
+    idu = 1
+    while True:
+        try:
+            predm = (data[str(idu)+'_predmet'].split('-')[0])
+            skup = (data[str(idu)+'_skupina'].split('-')[0])
+        except:
+            break
+
+        # Má se řádek smazat?
+        if predm == 'smazat' and skup == 'smazat':
+            sqlquery = "DELETE from predmetyveskupine where id_predmety_ve_skupine = %s" % idu
+            SQLConnect.query('DELETE', sqlquery)
+            idu += 1
+            continue
+        # Je na řádku změna?
+        if predm in ['', 'smazat'] and skup in ['', 'smazat']:
+            idu += 1
+            continue
+        sqlquery = 'UPDATE predmetyveskupine set '
+        if predm not in ['', 'smazat']:
+            sqlquery += 'cid_predmet = %s, ' % str(predm)
+        if skup not in ['', 'smazat']:
+            sqlquery += 'cid_studijni_skupina = %s, ' % str(skup)
+        sqlquery = sqlquery[:-2] + "where id_predmety_ve_skupine = %s" % str(idu)
+
+        SQLConnect.query('UPDATE', sqlquery)
+        idu += 1
 
 

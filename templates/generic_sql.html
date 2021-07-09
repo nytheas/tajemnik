@@ -32,8 +32,8 @@
             {% if sqltype == 'UPDATE' or sqltype == 'INSERT' %}
                 <td>
                     <label for="{{ columns[i] }}"></label>
-                    <input type = "text" id="{{ columns[i] }}" name="{{ columns[i] }}" value = "<same>"><br
-                ></td>
+                    <input type = "text" id="{{ columns[i] }}" name="{{ columns[i] }}" value = "<same>"><br>
+                </td>
             {% endif%}
         </tr>
         {% endfor %}

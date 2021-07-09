@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<table>
+        <tr>
+            <td>Změnit předmět</td>
+            <td>Změnit skupinu</td>
+        {% for h in hlavicka %}
+            <td>{{ h }}</td>
+        {% endfor %}
+        </tr>
+    <FORM method="post">
+            {% for i in data %}
+            <tr>
+                <td>
+                    <select name="{{ i[0] }}_predmet">
+                    {% for pre in predmet %}
+                            <option value="{{ pre }}">{{ pre }}</option>
+                    {% endfor %}
+                    </select><br>
+                </td>
+                <td>
+                    <select name="{{ i[0] }}_skupina">
+                    {% for sku in skupina %}
+                            <option value="{{ sku }}">{{ sku }}</option>
+                    {% endfor %}
+                    </select><br>
+                </td>
+            {% for j in i %}
+                <td>
+                    {{ j }}
+                </td>
+            {% endfor %}
+            </tr>
+            {% endfor %}
+    <input type="submit" value="Změnit">
+    </FORM>
+
+</table>
+
+
+{% endblock %}

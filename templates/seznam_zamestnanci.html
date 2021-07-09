@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+<a href="/funkce/stitky_k_prirazeni">Zobrazit vše</a><br>
+<a href="/funkce/stitky_k_prirazeni/neprirazene">Zobrazit nepřiřazené</a><br>
+<table>
+    <tr>
+        {% for h in prehled_hlavicka %}
+        <td>
+            {{ h }}
+        </td>
+        {% endfor %}
+    </tr>
+    {% for i in prehled %}
+    <tr>
+
+            {% for j in i %}
+            <td>
+                {{ j }}
+            </td>
+            {% endfor %}
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+<table>
+        <tr>
+            <td>Nový zaměstnanec</td>
+        {% for h in hlavicka %}
+            <td>{{ h }}</td>
+        {% endfor %}
+        </tr>
+    <FORM method="post">
+            {% for i in data %}
+            <tr>
+                <td>
+                    <select name="{{ i[0] }}">
+                    {% for zam in zamestnanci %}
+                            <option value="{{ zam }}">{{ zam }}</option>
+                    {% endfor %}
+                    </select><br>
+                </td>
+            {% for j in i %}
+                <td>
+                    {{ j }}
+                </td>
+            {% endfor %}
+            </tr>
+            {% endfor %}
+    <input type="submit" value="Změnit">
+    </FORM>
+
+</table>
+
+
+{% endblock %}

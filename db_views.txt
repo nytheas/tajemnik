@@ -39,3 +39,10 @@ select cid_zamestnanec, zkratka, sum(studentu_zapocet) as studentu_zapocet, sum(
 select cid_zamestnanec, p.zkratka, CASE WHEN je_zapocet IS true then pocet_studentu ELSE 0 END as studentu_zapocet,CASE WHEN je_klasifikovany_zapocet IS true then pocet_studentu ELSE 0 END as studentu_klasifikovany_zapocet, CASE WHEN je_zkouska IS true then pocet_studentu ELSE 0 END as studentu_zkouska from pracovnistitek ps
 join predmet p on p.id_predmet = ps.cid_predmet) X 
 GROUP by cid_zamestnanec, zkratka;
+
+
+CREATE VIEW predmety_ve_skupinach AS 
+select PVS.id_predmety_ve_skupine, P.id_predmet || '|' || P.zkratka || '|' || P.nazev as predmet, SS.id_studijni_skupina || '|' || SS.zkratka || '|' || SS.nazev as studijni_skupina from predmetyveskupine PVS 
+join predmet P on P.id_predmet = PVS.cid_predmet
+join studijniskupina SS on SS.id_studijni_skupina = PVS.cid_studijni_skupina
+order by P.id_predmet, SS.id_studijni_skupina;
