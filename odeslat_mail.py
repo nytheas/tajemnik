@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 import SQLConnect
 
 
-def odeslat_mail(id_zamestnanec, testemail=True):
+def odeslat_mail(id_zamestnanec, opravdoveemaily=False):
     sqlquery = "SELECT jmeno || prijmeni, email_pracovni from zamestnanec WHERE id_zamestnanec = %s" % id_zamestnanec
     zam = SQLConnect.query("SELECT", sqlquery)
     zam_jmeno = zam[0][0]
@@ -28,11 +28,11 @@ def odeslat_mail(id_zamestnanec, testemail=True):
     """
 
     sender_email = "fake.tajemnik3@seznam.cz"
-    testemail = True
-    if testemail:
-        receiver_email = 'fake.tajemnik3@seznam.cz'
-    else:
+    #opravdoveemaily = True
+    if opravdoveemaily:
         receiver_email = zam_email
+    else:
+        receiver_email = 'fake.tajemnik3@seznam.cz'
 
     subject = "Nová verze úvazků"
     file_cesta = "C:\\Projects\\Tajemnik\\uvazky\\"
