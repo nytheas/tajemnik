@@ -3,6 +3,7 @@ returns trigger as
 $BODY$
 declare pb double precision;
 begin
+    if new.cid_predmet is not NULL then
 	select pracovni_body into pb from pracovnibody where jazyk = new.jazyk and typ=new.typ;
 		new.pracovni_body := pb * new.pocet_hodin * new.pocet_tydnu;
 		if new.pocet_studentu = 0 then
@@ -26,6 +27,7 @@ begin
 	else
 		new.pracovni_body_zkouska := 0;
 	end if;
+    end if;
 	return new;
 end;
 $BODY$

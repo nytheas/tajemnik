@@ -44,7 +44,7 @@ def list_of_tables():
 def select_class(table):
 
     if use_db == 1:
-        sql.execute('select * from %s;' % table)
+        sql.execute('select * from %s order by 1;' % table)
         query = sql.fetchall()
         sql.execute("select column_name from information_schema.columns where table_name = '%s' order by "
                     "ordinal_position; " % table.lower())
@@ -101,9 +101,10 @@ def stitky_k_prirazeni(filt=''):
                 LEFT JOIN predmet p on p.id_predmet = ps.cid_predmet
                 LEFT JOIN zamestnanec z on z.id_zamestnanec = ps.cid_zamestnanec """
     if filt == "neprirazene":
-        sqlquery += "where cid_zamestnanec is NULL;"
+        sqlquery += "where cid_zamestnanec is NULL"
     else:
-        sqlquery += ";"
+        sqlquery += ""
+    sqlquery += " order by id_pracovni_stitek;"
 
     sql.execute(sqlquery)
     data = sql.fetchall()
@@ -115,7 +116,7 @@ def stitky_k_prirazeni(filt=''):
     for i in query:
         seznam_zamestnanci.append(i[0])
 
-    sqlquery2 = """select cid_zamestnanec, max(Z.jmeno || ' ' || Z.prijmeni) as jmeno, sum(pracovni_body + pracovni_body_zapocet + pracovni_body_klasifikovany_zapocet + pracovni_body_zkouska) as pracovni_body  from pracovnistitek PS
+    sqlquery2 = """select cid_zamestnanec, max(Z.jmeno || ' ' || Z.prijmeni) as jmeno, round(sum(pracovni_body + pracovni_body_zapocet + pracovni_body_klasifikovany_zapocet + pracovni_body_zkouska)) as pracovni_body  from pracovnistitek PS
                 join zamestnanec Z on Z.id_zamestnanec = PS.cid_zamestnanec
                 group by cid_zamestnanec;"""
     sql.execute(sqlquery2)
@@ -208,8 +209,8 @@ def pracovnilisty():
 @app.route('/funkce/generujcsv')
 def generujcsv():
     sql.execute("""select PS.*, Z.jmeno || ' ' || Z.prijmeni as jmeno, P.zkratka as zkratka, P.nazev as predmet from pracovnistitek PS
-    join zamestnanec Z on Z.id_zamestnanec = PS.cid_zamestnanec
-    join predmet P on P.id_predmet = PS.cid_predmet
+    left join zamestnanec Z on Z.id_zamestnanec = PS.cid_zamestnanec
+    left join predmet P on P.id_predmet = PS.cid_predmet
     order by id_pracovni_stitek;""")
     data = sql.fetchall()
     text = procedures.generuj_csv(data)

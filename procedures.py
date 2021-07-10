@@ -16,6 +16,7 @@ def generic_web_function(sqltype, valdict, table, idval, idname):
                 sqlquery += "'" + valdict[i] + "', "
         sqlquery = sqlquery[:-2]
         sqlquery += ");"
+        sqlquery = sqlquery.replace("'NULL'", "NULL")
         SQLConnect.query('INSERT', sqlquery)
     elif sqltype == 'UPDATE':
         sqlquery = 'UPDATE ' + table + ' SET '
