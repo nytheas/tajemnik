@@ -172,22 +172,22 @@ def nevyresene_stitky():
     table = sql.fetchall()
     return render_template('nevyresenestitky.html', header=header, table=table)
 
-
-@app.route('/funkce/vygenerujpracovnilisty')
-def vygeneruj_pracovni_listy():
-    sql.execute("select id_zamestnanec from zamestnanec;")
-    zamestnanci = sql.fetchall()
-    for zam in zamestnanci:
-        generuj_excel.vygenerovat_uvazky(zam[0])
-    return render_template('index.html')
-
-
-@app.route('/funkce/odeslimail')
-def odesli_prilohy_mailem():
-    sql.execute("select id_zamestnanec from zamestnanec;")
-    zamestnanci = sql.fetchall()
-    odeslat_mail.odeslat_mail()
-    return render_template('index.html')
+#
+# @app.route('/funkce/vygenerujpracovnilisty')
+# def vygeneruj_pracovni_listy():
+#     sql.execute("select id_zamestnanec from zamestnanec;")
+#     zamestnanci = sql.fetchall()
+#     for zam in zamestnanci:
+#         generuj_excel.vygenerovat_uvazky(zam[0])
+#     return render_template('index.html')
+#
+#
+# @app.route('/funkce/odeslimail')
+# def odesli_prilohy_mailem():
+#     sql.execute("select id_zamestnanec from zamestnanec;")
+#     zamestnanci = sql.fetchall()
+#     odeslat_mail.odeslat_mail()
+#     return render_template('index.html')
 
 
 @app.route('/funkce/pracovnilisty', methods=['GET', 'POST'])
@@ -209,7 +209,8 @@ def pracovnilisty():
 def generujcsv():
     sql.execute("""select PS.*, Z.jmeno || ' ' || Z.prijmeni as jmeno, P.zkratka as zkratka, P.nazev as predmet from pracovnistitek PS
     join zamestnanec Z on Z.id_zamestnanec = PS.cid_zamestnanec
-    join predmet P on P.id_predmet = PS.cid_predmet;""")
+    join predmet P on P.id_predmet = PS.cid_predmet
+    order by id_pracovni_stitek;""")
     data = sql.fetchall()
     text = procedures.generuj_csv(data)
     return render_template('csv.html', text=text)

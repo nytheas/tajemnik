@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<div style="overflow-x:auto;">
 <table>
     <tr>
         {% for h in hlavicka %}
-        <td>
+        <th>
             {{ h }}
-        </td>
+        </th>
         {% endfor %}
     </tr>
 
@@ -31,6 +31,7 @@
     </FORM>
 
 </table>
+</div>
 
 
 {% endblock %}

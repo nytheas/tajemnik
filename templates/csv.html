@@ -1,6 +1,8 @@
 ﻿{% extends "layout.html" %}
 {% block content %}
-{{ text }}
+{% for i in text %}
+{{ i }}<br>
+{% endfor %}
 
 
 {% endblock %}

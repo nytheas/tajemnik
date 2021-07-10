@@ -19,3 +19,23 @@
   display: table;
   clear: both;
 }
+
+table {
+  border: 1px solid black;
+}
+
+th {
+  background-color: #00308F;
+  color: white;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+
+
+

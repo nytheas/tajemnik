@@ -2,11 +2,11 @@
 {% block content %}
 
 <a href="/data/">Navrat na seznam</a><br>
-
+ <div style="overflow-x:auto;">
 <table>
     <tr>
         {% for i in header %}
-        <td>{{ i }}</td>
+        <th>{{ i }}</th>
         {% endfor %}
     </tr>
     {% for i in table %}
@@ -20,6 +20,6 @@
 
     {% endfor %}
 </table>
-
+ </div>
 
 {% endblock %}

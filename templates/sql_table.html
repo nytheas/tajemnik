@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<a href="/data/">Zpět na seznam</a>
-<a href="/data/{{ tabname }}/0/insert">Vložit nový záznam</a>
+<a href="/data/">Zpět na seznam</a><br><br>
+<a href="/data/{{ tabname }}/0/insert">Vložit nový záznam</a><br><br>
+ <div style="overflow-x:auto;">
 <table>
         <tr>
-            <td>odkaz</td>
+            <th>odkaz</th>
             {% for i in header %}
-        <td>{{ i }}</td>
+        <th>{{ i }}</th>
         {% endfor %}
     </tr>
      {% for i in table %}
@@ -21,6 +22,6 @@
 
     {% endfor %}
 </table>
-
+ </div>
 
 {% endblock %}

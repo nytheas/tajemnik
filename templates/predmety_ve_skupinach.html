@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-
+ <div style="overflow-x:auto;">
 <table>
         <tr>
-            <td>Změnit předmět</td>
-            <td>Změnit skupinu</td>
+            <th>Změnit předmět</th>
+            <th>Změnit skupinu</th>
         {% for h in hlavicka %}
-            <td>{{ h }}</td>
+            <th>{{ h }}</th>
         {% endfor %}
         </tr>
     <FORM method="post">
@@ -37,6 +37,6 @@
     </FORM>
 
 </table>
-
+ </div>
 
 {% endblock %}

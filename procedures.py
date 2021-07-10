@@ -117,6 +117,7 @@ def vytvorit_stitky():
                             rozvrhovany_pocet_studentu, je_zapocet, je_klasifikovany_zapocet, je_zkouska)  VALUES ('%s',%s,%s,'%s','%s','%s',%s,%s,'%s',%s,%s,%s,%s);""" \
                            % (p_nazev + " - " + typ_stitku, id_predmet, cid_zamestnanec, typ_stitku, p_semestr,
                               p_studium, p_hodin, p_tydnu, p_jazyk,  velikost_tridy, je_zap, je_klas, je_zk)
+                sqlquery = sqlquery.replace(",None,", ",NULL,")
                 SQLConnect.query('INSERT', sqlquery)
 
 
@@ -192,10 +193,14 @@ def generuj_a_odesli_excel(data):
 
 
 def generuj_csv(data):
+    outputdata = []
     text = 'id_pracovni_stitek;nazev;cid_zamestnanec;cid_predmet;typ;pocet_studentu;pocet_hodin;pocet_tydnu;jazyk;semestr;studium;pracovni_body;rozvrhovany_pocet_studentu;je_zapocet;pracovni_body_zapocet;je_klasifikovany_zapocet;pracovni_body_klasifikovany_zapocet;je_zkouska;pracovni_body_zkouska;jmeno;zkratka;predmet\n'
+    outputdata.append(text)
     for radek in data:
+        text = ''
         for udaj in radek:
             text += str(udaj) + ";"
         text += "\n"
+        outputdata.append(text)
 
-    return text
+    return outputdata

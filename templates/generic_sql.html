@@ -2,24 +2,26 @@
 {% block content %}
 
 {% if sqltype == 'SELECT' %}
-<a href="/data/{{ table }}/{{ idval }}/update">Upravit záznam</a><br>
-<a href="/data/{{ table }}/{{ idval }}/delete">Smazat záznam</a><br>
-<a href="/data/{{ table }}">Zpět na tabulku</a><br>
+<a href="/data/{{ table }}/{{ idval }}/update">Upravit záznam</a><br><br>
+<a href="/data/{{ table }}/{{ idval }}/delete">Smazat záznam</a><br><br>
+<a href="/data/{{ table }}">Zpět na tabulku</a><br><br>
 {% endif %}
 {% if sqltype == 'UPDATE' or sqltype == 'DELETE'%}
-<a href="/data/{{ table }}/{{ idval }}/select">Zpět na záznam</a><br>
+<a href="/data/{{ table }}/{{ idval }}/select">Zpět na záznam</a><br><br>
 {% endif %}
 {% if sqltype == 'INSERT' %}
-<a href="/data/{{ table }}">Zpět na tabulku</a><br>
+<a href="/data/{{ table }}">Zpět na tabulku</a><br><br>
 {% endif %}
+
+ <div style="overflow-x:auto;">
 <table>
         <tr>
-            <td>Sloupec</td>
+            <th>Sloupec</th>
             {% if sqltype != 'INSERT' %}
-            <td>Původní hodnota</td>
+            <th>Původní hodnota</th>
             {% endif %}
             {% if sqltype == 'UPDATE' or sqltype == 'INSERT' %}
-            <td>Nová hodnota</td>
+            <th>Nová hodnota</th>
             {% endif %}
         </tr>
     <FORM method="post">
@@ -29,10 +31,16 @@
             {% if sqltype != 'INSERT' %}
                 <td>{{ values[i] }}</td>
             {% endif %}
-            {% if sqltype == 'UPDATE' or sqltype == 'INSERT' %}
+            {% if sqltype == 'UPDATE' %}
                 <td>
                     <label for="{{ columns[i] }}"></label>
                     <input type = "text" id="{{ columns[i] }}" name="{{ columns[i] }}" value = "<same>"><br>
+                </td>
+            {% endif%}
+            {% if sqltype == 'INSERT' %}
+                <td>
+                    <label for="{{ columns[i] }}"></label>
+                    <input type = "text" id="{{ columns[i] }}" name="{{ columns[i] }}" value = ""><br>
                 </td>
             {% endif%}
         </tr>
@@ -43,6 +51,5 @@
     </FORM>
 
 </table>
-
-
+ </div>
 {% endblock %}

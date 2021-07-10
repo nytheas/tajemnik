@@ -2,12 +2,13 @@
 {% block content %}
 <a href="/funkce/stitky_k_prirazeni">Zobrazit vše</a><br>
 <a href="/funkce/stitky_k_prirazeni/neprirazene">Zobrazit nepřiřazené</a><br>
+ <div style="overflow-x:auto;">
 <table>
     <tr>
         {% for h in prehled_hlavicka %}
-        <td>
+        <th>
             {{ h }}
-        </td>
+        </th>
         {% endfor %}
     </tr>
     {% for i in prehled %}
@@ -23,13 +24,14 @@
     {% endfor %}
 
 </table>
-
-
+ </div>
+<br><br>
+ <div style="overflow-x:auto;">
 <table>
         <tr>
-            <td>Nový zaměstnanec</td>
+            <th>Nový zaměstnanec</th>
         {% for h in hlavicka %}
-            <td>{{ h }}</td>
+            <th>{{ h }}</th>
         {% endfor %}
         </tr>
     <FORM method="post">
@@ -53,6 +55,6 @@
     </FORM>
 
 </table>
-
+ </div>
 
 {% endblock %}

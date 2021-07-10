@@ -1,17 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<a href="/funkce/vygenerujstitky">Přegenerovat štítky</a><br>
+<a href="/funkce/vygenerujstitky">Přegenerovat štítky</a><br><br>
 <h1>Nevyřešené štítky</h1>
+ <div style="overflow-x:auto;">
 <table>
     <tr>
         {% for i in header %}
-        <td>{{ i }}</td>
+        <th>{{ i }}</th>
         {% endfor %}
     </tr>
     {% for i in table %}
     <tr>
-        {% for j in table[i].select() %}
+        {% for j in i %}
         <td> {{ j }} </td>
         {% endfor %}
 
@@ -20,6 +21,5 @@
 
     {% endfor %}
 </table>
-
-
+ </div>
 {% endblock %}
