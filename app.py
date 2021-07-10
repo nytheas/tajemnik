@@ -205,6 +205,16 @@ def pracovnilisty():
         return render_template('odeslani_stitku.html', hlavicka=hlavicka, tabulka=tabulka)
 
 
+@app.route('/funkce/generujcsv')
+def generujcsv():
+    sql.execute("""select PS.*, Z.jmeno || ' ' || Z.prijmeni as jmeno, P.zkratka as zkratka, P.nazev as predmet from pracovnistitek PS
+    join zamestnanec Z on Z.id_zamestnanec = PS.cid_zamestnanec
+    join predmet P on P.id_predmet = PS.cid_predmet;""")
+    data = sql.fetchall()
+    text = procedures.generuj_csv(data)
+    return render_template('csv.html', text=text)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 

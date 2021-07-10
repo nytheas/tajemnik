@@ -191,3 +191,11 @@ def generuj_a_odesli_excel(data):
         odeslat_mail.odeslat_mail(i, opravdovemaily)
 
 
+def generuj_csv(data):
+    text = 'id_pracovni_stitek;nazev;cid_zamestnanec;cid_predmet;typ;pocet_studentu;pocet_hodin;pocet_tydnu;jazyk;semestr;studium;pracovni_body;rozvrhovany_pocet_studentu;je_zapocet;pracovni_body_zapocet;je_klasifikovany_zapocet;pracovni_body_klasifikovany_zapocet;je_zkouska;pracovni_body_zkouska;jmeno;zkratka;predmet\n'
+    for radek in data:
+        for udaj in radek:
+            text += str(udaj) + ";"
+        text += "\n"
+
+    return text
