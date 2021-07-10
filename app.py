@@ -162,7 +162,15 @@ def predmety_ve_skupinach():
 @app.route('/funkce/vygenerujstitky')
 def vygeneruj_stitky():
     procedures.vytvorit_stitky()
-    return render_template('index.html')
+    return redirect(f"/funkce/nevyresenestitky")
+
+
+@app.route('/funkce/nevyresenestitky')
+def nevyresene_stitky():
+    header = ['Id pøedmìt', 'Typ ¹títku', 'Hodin', 'Studentù ve tøídì', 'Oèekávané tøídy', 'Celkem studentù', 'Tøíd na ¹títcích', 'Studentù na ¹títcích', 'Rozvrhovaný poèet studentù']
+    sql.execute("""select * from stitky_ke_zpracovani;""")
+    table = sql.fetchall()
+    return render_template('nevyresenestitky.html', header=header, table=table)
 
 
 @app.route('/funkce/vygenerujpracovnilisty')
@@ -180,6 +188,21 @@ def odesli_prilohy_mailem():
     zamestnanci = sql.fetchall()
     odeslat_mail.odeslat_mail()
     return render_template('index.html')
+
+
+@app.route('/funkce/pracovnilisty', methods=['GET', 'POST'])
+def pracovnilisty():
+    sql.execute("""select id_zamestnanec, jmeno || ' ' || prijmeni from zamestnanec;""")
+    tabulka = sql.fetchall()
+    hlavicka = ['Id zamìstnance', 'Jméno', 'Zpracovat']
+
+    if request.method == 'GET':
+        return render_template('odeslani_stitku.html', hlavicka=hlavicka, tabulka=tabulka)
+
+    if request.method == 'POST':
+        print(request.form.to_dict())
+        procedures.generuj_a_odesli_excel(request.form.to_dict())
+        return render_template('odeslani_stitku.html', hlavicka=hlavicka, tabulka=tabulka)
 
 
 if __name__ == "__main__":

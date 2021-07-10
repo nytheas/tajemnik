@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<a href="/funkce/vygenerujstitky">Přegenerovat štítky</a><br>
+<h1>Nevyřešené štítky</h1>
+<table>
+    <tr>
+        {% for i in header %}
+        <td>{{ i }}</td>
+        {% endfor %}
+    </tr>
+    {% for i in table %}
+    <tr>
+        {% for j in table[i].select() %}
+        <td> {{ j }} </td>
+        {% endfor %}
+
+    </tr>
+
+
+    {% endfor %}
+</table>
+
+
+{% endblock %}

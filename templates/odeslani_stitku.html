@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<table>
+    <tr>
+        {% for h in hlavicka %}
+        <td>
+            {{ h }}
+        </td>
+        {% endfor %}
+    </tr>
+
+
+    <FORM method="post">
+        <input type="checkbox" id ="opravdovemaily" name ="opravdovemaily" value="1">
+            <label for="opravdovemaily"> Poslat na opravdové maily? </label>
+            {% for i in tabulka %}
+            <tr>
+             {% for j in i %}
+                <td>
+                    {{ j }}
+                </td>
+            {% endfor %}
+            <td>
+                <input type="checkbox" id ="{{ i[0] }}" name ="{{ i[0] }}" value="1">
+                <label for="{{ i[0] }}"> </label>
+            </td>
+            </tr>
+            {% endfor %}
+    <input type="submit" value="Zpracovat">
+    </FORM>
+
+</table>
+
+
+{% endblock %}

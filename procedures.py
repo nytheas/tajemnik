@@ -1,5 +1,7 @@
 import SQLConnect
 import ClassPracovniStitek
+import generuj_excel
+import odeslat_mail
 
 def generic_web_function(sqltype, valdict, table, idval, idname):
     if sqltype == 'INSERT':
@@ -138,7 +140,6 @@ def doplnit_zamestnance(data):
 
 
 def doplnit_predmety_ve_skupinach(data):
-    print(data)
     # zjistit, zda založit nový záznam
     if data['0_predmet'] not in ['', 'smazat'] and data['0_skupina'] not in ['', 'smazat']:
         predm = int(data['0_predmet'].split('-')[0])
@@ -174,5 +175,19 @@ def doplnit_predmety_ve_skupinach(data):
 
         SQLConnect.query('UPDATE', sqlquery)
         idu += 1
+
+
+def generuj_a_odesli_excel(data):
+    seznam = []
+    opravdovemaily = False
+    for i in data:
+        if i != 'opravdovemaily':
+            seznam.append(int(i))
+        else:
+            opravdovemaily = True
+    print(seznam)
+    for i in seznam:
+        generuj_excel.vygenerovat_uvazky(i)
+        odeslat_mail.odeslat_mail(i, opravdovemaily)
 
 

@@ -7,7 +7,7 @@ def vygenerovat_uvazky(id_zamestnanec):
     radky = SQLConnect.query("SELECT", sqlquery)
     sqlquery = "SELECT * from prehled_zkousek_do_excelu WHERE cid_zamestnanec = %s" % id_zamestnanec
     zkousky = SQLConnect.query("SELECT", sqlquery)
-    sqlquery = "SELECT jmeno || ' ' || prijmeni from zamestnanec WHERE id_zamestnanec = %s" % id_zamestnanec
+    sqlquery = "SELECT jmeno || prijmeni from zamestnanec WHERE id_zamestnanec = %s" % id_zamestnanec
     zam = SQLConnect.query("SELECT1", sqlquery)
     if len(radky) > 10 or len(zkousky) > 8:
         print("Příliš mnoho řádků!")
@@ -50,5 +50,5 @@ def vygenerovat_uvazky(id_zamestnanec):
 
         rid += 1
 
-    mywb.save('uvazky\\úvazek ' + zam + ".xlsx")
+    mywb.save('uvazky\\UvazekZamestnanecID' + str(id_zamestnanec) + ".xlsx")
     mywb.close()
