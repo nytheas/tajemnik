@@ -22,7 +22,7 @@ OR (predmet_hodin > 0 and studenti_celkem > 0 and studenti_ve_tride != rozvrhova
 
 
 CREATE VIEW prehled_vyuky_do_excelu AS
-select ps.cid_zamestnanec, p.zkratka, ps.semestr,ps.pocet_tydnu, COALESCE(psp.prednasky_hodiny,0) as prednasky_hodiny, COALESCE(pss.seminar_hodiny,0) as seminar_hodiny, COALESCE(psc.cviceni_hodiny,0) as cviceni_hodiny, COALESCE(psp.prednasky_pocet,0) as prednasky_pocet, COALESCE(pss.seminar_pocet,0) as seminar_pocet, COALESCE(psc.cviceni_pocet,0) as cviceni_pocet from pracovnistitek ps
+select distinct ps.cid_zamestnanec, p.zkratka, ps.semestr,ps.pocet_tydnu, COALESCE(psp.prednasky_hodiny,0) as prednasky_hodiny, COALESCE(pss.seminar_hodiny,0) as seminar_hodiny, COALESCE(psc.cviceni_hodiny,0) as cviceni_hodiny, COALESCE(psp.prednasky_pocet,0) as prednasky_pocet, COALESCE(pss.seminar_pocet,0) as seminar_pocet, COALESCE(psc.cviceni_pocet,0) as cviceni_pocet from pracovnistitek ps
 JOIN predmet p on p.id_predmet = ps.cid_predmet
 LEFT JOIN (select cid_zamestnanec, cid_predmet, sum(pocet_hodin) as prednasky_hodiny, count(pocet_hodin) as prednasky_pocet from pracovnistitek
 where pracovni_body > 0 and typ = 'pøednáška'
